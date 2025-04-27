@@ -1,0 +1,17 @@
+# Airline Booking System Backend
+
+### Entire source code is present in folder `src`
+
+- `config` -> This folder has all the configuration like logging config etc
+
+- `routes` -> Routes folder holds all the routes for the project.
+
+- `middlewares` -> This folder has all our middlewares like validator, authenticator etc
+
+- `controllers` -> This where we controll our request and response. It just controlls the request-response cycle all the business logic is done in services folder.
+
+- `repositories` -> The folder contains all the logic using which we interact with DB by writing queries, all the raw queries or ORM queries will go here.
+
+- `services` -> Contains all the business logic and interact with the repositories to get data from the database.
+
+- `utils` -> This is contains the helper methods, error classess etc for our project.
