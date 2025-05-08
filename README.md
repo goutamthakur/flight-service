@@ -14,4 +14,5 @@
 
 - `services` -> Contains all the business logic and interact with the repositories to get data from the database.
 
-- `utils` -> This is contains the helper methods, error classess etc for our project.
+- `utils` -> This folder contains the helper methods, error classess etc for our project.
+

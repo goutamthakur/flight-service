@@ -1,0 +1,22 @@
+{
+  "name": "airline-booking-system-backend",
+  "version": "1.0.0",
+  "description": "Complete backend for airline booking system",
+  "license": "ISC",
+  "author": "goutam thakur",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx nodemon ./src/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "http-status-codes": "^2.3.0",
+    "mysql2": "^3.14.1",
+    "nodemon": "^3.1.9",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.2",
+    "winston": "^3.17.0"
+  }
+}
