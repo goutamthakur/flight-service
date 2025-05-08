@@ -49,7 +49,6 @@ async function getAirplanes() {
 
 async function updateAirplane(id, data) {
   try {
-    console.log("This is id and data in updateAirplane service", id, data)
     const airplane = await airplaneRepository.update(id, data);
     return airplane;
   } catch (error) {
