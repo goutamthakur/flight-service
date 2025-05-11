@@ -1,6 +1,8 @@
-# Airline Booking System Backend
+# ✈️ Flight Microservice
 
-### Entire source code is present in folder `src`
+This repository contains the **Flight Microservice**, which is part of a larger airline booking system. The entire source code resides within the `src` directory and follows a clean modular structure for scalability and maintainability.
+
+## 📁 Project Structure
 
 - `config` -> This folder has all the configuration like logging config etc
 
@@ -16,3 +18,23 @@
 
 - `utils` -> This folder contains the helper methods, error classess etc for our project.
 
+## 🔐 Environment Configuration
+
+The `.env.example` file serves as a template for required environment variables. Copy it and paste to `.env`, then fill in the actual values.
+
+## 🛠️ Setup Instructions
+
+1. Install Dependencies `npm install`
+
+2. Configure Environment Variables
+
+    Copy the example .env file and update it with your local database credential
+
+3. Create and Migrate Database
+    ```
+    npx sequelize db:create
+    npx sequelize db:migrate
+    ```
+
+4. Start Development Server
+   `npm run dev`
