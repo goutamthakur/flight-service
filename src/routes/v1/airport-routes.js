@@ -2,11 +2,12 @@ const express = require("express");
 const router = express.Router();
 
 const { AirportController } = require("../../controllers");
-// const { CityMiddlewares } = require("../../middlewares")
+const { AirportMiddlewares } = require("../../middlewares")
 
 // POST /api/v1/airports
 router.post(
   "/",
+   AirportMiddlewares.validateCreateRequest,
    AirportController.createAirport
 );
   
