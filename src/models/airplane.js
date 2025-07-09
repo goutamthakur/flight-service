@@ -13,6 +13,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "airplaneId",
         as: "airplaneDetails",
       });
+
+      this.hasMany(models.seat, {
+        foreignKey: "airplaneId",
+      });
     }
   }
   airplane.init(
