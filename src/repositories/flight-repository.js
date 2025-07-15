@@ -1,7 +1,9 @@
 const { Sequelize } = require("sequelize");
+const { StatusCodes } = require("http-status-codes");
 
 const CrudRepository = require("./crud-repository");
 const { flight, airplane, airport, city } = require("../models");
+const { AppError } = require("../utils");
 
 class FlightRepository extends CrudRepository {
   constructor() {
@@ -59,6 +61,23 @@ class FlightRepository extends CrudRepository {
       attributes: { exclude: ["createdAt", "updatedAt"] },
     });
     return response;
+  }
+
+  async updateSeats(flightId, seats, dec) {
+    const updateFlight = await flight.findByPk(flightId);
+    if (!updateFlight) {
+      throw new AppError(
+        "Flight not found for given id",
+        StatusCodes.NOT_FOUND
+      );
+    }
+    if (dec) {
+      await updateFlight.decrement("totalSeats", { by: seats });
+    } else {
+      await updateFlight.increment("totalSeats", { by: seats });
+    }
+    await updateFlight.reload();
+    return updateFlight;
   }
 }
 

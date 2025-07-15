@@ -72,7 +72,46 @@ async function getAllFlights(query) {
   }
 }
 
+async function getFlight(id) {
+  try {
+    const flight = await flightRepository.get(id);
+    return flight;
+  } catch (error) {
+    if (error.statusCode === StatusCodes.NOT_FOUND) {
+      throw new AppError(
+        "Unable to find the requested flight",
+        StatusCodes.NOT_FOUND
+      );
+    }
+    throw new AppError(
+      "Something went wrong while fetching the flight",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
+async function updateSeats(flightId, seats, dec = true) {
+  try {
+    const flight = await flightRepository.updateSeats(
+      parseInt(flightId),
+      parseInt(seats),
+      dec
+    );
+    return flight;
+  } catch (error) {
+    if (error.statusCode === StatusCodes.NOT_FOUND) {
+      throw new AppError(`${error.message}`, StatusCodes.NOT_FOUND);
+    }
+    throw new AppError(
+      "Something went wrong while fetching the flight",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+
 module.exports = {
   createFlight,
   getAllFlights,
+  getFlight,
+  updateSeats,
 };

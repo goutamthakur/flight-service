@@ -28,9 +28,12 @@ function validateCreateRequest(req, res, next) {
     return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
   }
 
-  const compareFlightTime = compareTime(req.body?.departureTime, req.body?.arrivalTime);
+  const compareFlightTime = compareTime(
+    req.body?.departureTime,
+    req.body?.arrivalTime
+  );
   if (compareFlightTime) {
-    ErrorResponse.message = "Something when wrong while creating airplane";
+    ErrorResponse.message = "Something when wrong while creating flight";
     ErrorResponse.error = new AppError(
       "Departure time cannot be after arrival time.",
       StatusCodes.BAD_REQUEST
@@ -41,6 +44,19 @@ function validateCreateRequest(req, res, next) {
   next();
 }
 
+function validateUpdateSeats(req, res, next) {
+  if (!req?.body?.seats) {
+    ErrorResponse.message = "Something when wrong while updating flight";
+    ErrorResponse.error = new AppError(
+      `seats not found in the incoming request`,
+      StatusCodes.BAD_REQUEST
+    );
+    return res.status(StatusCodes.BAD_REQUEST).json(ErrorResponse);
+  }
+  next();
+}
+
 module.exports = {
   validateCreateRequest,
+  validateUpdateSeats,
 };
