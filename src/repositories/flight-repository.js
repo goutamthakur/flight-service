@@ -4,6 +4,7 @@ const { StatusCodes } = require("http-status-codes");
 const CrudRepository = require("./crud-repository");
 const { flight, airplane, airport, city } = require("../models");
 const { AppError } = require("../utils");
+const db = require("../models");
 
 class FlightRepository extends CrudRepository {
   constructor() {
@@ -64,20 +65,41 @@ class FlightRepository extends CrudRepository {
   }
 
   async updateSeats(flightId, seats, dec) {
-    const updateFlight = await flight.findByPk(flightId);
-    if (!updateFlight) {
-      throw new AppError(
-        "Flight not found for given id",
-        StatusCodes.NOT_FOUND
-      );
+    // Row Level Lock for updating seats inside a transaction
+    const t = await db.sequelize.transaction();
+    try {
+      const updateFlight = await flight.findOne({
+        where: {
+          id: flightId,
+        },
+        lock: t.LOCK.UPDATE,
+        transaction: t,
+      });
+      if (!updateFlight) {
+        throw new AppError(
+          "Flight not found for given id",
+          StatusCodes.NOT_FOUND
+        );
+      }
+      if (dec) {
+        await updateFlight.decrement("totalSeats", {
+          by: seats,
+          transaction: t,
+        });
+      } else {
+        await updateFlight.increment("totalSeats", {
+          by: seats,
+          transaction: t,
+        });
+      }
+      await updateFlight.reload({ transaction: t });
+      await t.commit();
+      return updateFlight;
+    } catch (error) {
+      await t.rollback();
+      console.log(error);
+      throw error;
     }
-    if (dec) {
-      await updateFlight.decrement("totalSeats", { by: seats });
-    } else {
-      await updateFlight.increment("totalSeats", { by: seats });
-    }
-    await updateFlight.reload();
-    return updateFlight;
   }
 }
 

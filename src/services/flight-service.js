@@ -95,7 +95,7 @@ async function updateSeats(flightId, seats, dec = true) {
     const flight = await flightRepository.updateSeats(
       parseInt(flightId),
       parseInt(seats),
-      dec
+      dec === "true" ? true : dec === "false" ? false : dec
     );
     return flight;
   } catch (error) {
