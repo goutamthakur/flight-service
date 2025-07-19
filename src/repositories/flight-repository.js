@@ -77,7 +77,7 @@ class FlightRepository extends CrudRepository {
       });
       if (!updateFlight) {
         throw new AppError(
-          "Flight not found for given id",
+          "Flight not found for given Id",
           StatusCodes.NOT_FOUND
         );
       }
@@ -97,7 +97,13 @@ class FlightRepository extends CrudRepository {
       return updateFlight;
     } catch (error) {
       await t.rollback();
-      throw error;
+      if (error.statusCode === StatusCodes.NOT_FOUND) {
+        throw error;
+      }
+      throw new AppError(
+        "Something went wrong while booking",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
     }
   }
 }

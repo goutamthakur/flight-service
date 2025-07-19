@@ -100,7 +100,7 @@ async function updateSeats(flightId, seats, dec = true) {
     return flight;
   } catch (error) {
     if (error.statusCode === StatusCodes.NOT_FOUND) {
-      throw new AppError(`${error.message}`, StatusCodes.NOT_FOUND);
+      throw error;
     }
     throw new AppError(
       "Something went wrong while fetching the flight",
