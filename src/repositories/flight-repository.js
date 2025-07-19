@@ -97,7 +97,6 @@ class FlightRepository extends CrudRepository {
       return updateFlight;
     } catch (error) {
       await t.rollback();
-      console.log(error);
       throw error;
     }
   }
