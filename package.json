@@ -1,13 +1,13 @@
 {
-  "name": "airline-booking-system-backend",
+  "name": "flight-service",
   "version": "1.0.0",
-  "description": "Complete backend for airline booking system",
+  "description": "Microservice to handle flight data",
   "license": "ISC",
   "author": "goutam thakur",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon ./src/index.js"
+    "dev": "npx nodemon ./src/app.js"
   },
   "dependencies": {
     "dotenv": "^16.5.0",
@@ -17,6 +17,8 @@
     "nodemon": "^3.1.9",
     "sequelize": "^6.37.7",
     "sequelize-cli": "^6.6.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "winston": "^3.17.0"
   }
 }
