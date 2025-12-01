@@ -2,4 +2,5 @@ module.exports = {
   ServerConfig: require("./server-config.js"),
   Logger: require("./logger-config.js"),
   SwaggerConfig: require("./swagger-config.js"),
+  LimiterConfig: require("./limiter-config.js"),
 };

@@ -2,7 +2,7 @@ const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const { StatusCodes } = require("http-status-codes");
 
-const { ServerConfig, SwaggerConfig } = require("./config");
+const { ServerConfig, SwaggerConfig, LimiterConfig } = require("./config");
 const { ErrorResponse } = require("./utils/common");
 
 const app = express();
@@ -10,6 +10,8 @@ const apiRoutes = require("./routes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(LimiterConfig.limiter);
 
 app.use("/api", apiRoutes);
 
